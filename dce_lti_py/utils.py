@@ -1,9 +1,9 @@
 from uuid import uuid1
-import urlparse
+from urllib import parse
 
 def parse_qs(qs):
     return dict( (k, v if len(v)>1 else v[0] )
-        for k, v in urlparse.parse_qs(qs).iteritems() )
+        for k, v in parse.parse_qs(qs).iteritems() )
 
 def generate_identifier():
     return uuid1().__str__()

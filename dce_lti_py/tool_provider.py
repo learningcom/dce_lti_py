@@ -1,15 +1,14 @@
-from utils import InvalidLTIRequestError
-from launch_params import LaunchParams
-from tool_base import ToolBase
+from .utils import InvalidLTIRequestError
+from .launch_params import LaunchParams
+from .tool_base import ToolBase
 
 from oauthlib.oauth1 import SignatureOnlyEndpoint
 from oauthlib.oauth1.rfc5849 import CONTENT_TYPE_FORM_URLENCODED
 from requests.structures import CaseInsensitiveDict
 
-from outcome_request import OutcomeRequest
+from .outcome_request import OutcomeRequest
 from collections import defaultdict
-from urllib import urlencode
-from urlparse import urlsplit, urlunsplit, parse_qsl
+from urllib import parse
 
 class ToolProvider(ToolBase):
     '''
@@ -83,14 +82,14 @@ class ToolProvider(ToolBase):
                          if getattr(self, key, None)])
 
         # Disassemble original return URL and reassemble with our options added
-        original = urlsplit(self.launch_presentation_return_url)
+        original = parse.urlsplit(self.launch_presentation_return_url)
 
         combined = messages.copy()
-        combined.update(dict(parse_qsl(original.query)))
+        combined.update(dict(parse.parse_qsl(original.query)))
 
-        combined_query = urlencode(combined)
+        combined_query = parse.urlencode(combined)
 
-        return urlunsplit((
+        return parse.unsplit((
             original.scheme,
             original.netloc,
             original.path,

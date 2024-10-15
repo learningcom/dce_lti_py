@@ -36,6 +36,7 @@ setup(
     author_email='jay_luker@harvard.edu',
     url='https://github.com/harvard-dce/dce_lti_py',
     packages=find_packages(),
+    python_requires='>=3.2'
     install_requires=['lxml', 'oauthlib', 'requests-oauthlib'],
     license='MIT License',
     keywords='lti',

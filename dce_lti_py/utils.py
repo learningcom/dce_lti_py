@@ -1,9 +1,11 @@
+import six 
+
 from uuid import uuid1
 from urllib import parse
 
 def parse_qs(qs):
     return dict( (k, v if len(v)>1 else v[0] )
-        for k, v in parse.parse_qs(qs).iteritems() )
+        for k, v in six.iteritems(parse.parse_qs(qs)) )
 
 def generate_identifier():
     return uuid1().__str__()

@@ -1,3 +1,5 @@
+import six
+
 from collections import defaultdict
 from lxml import etree, objectify
 
@@ -53,7 +55,7 @@ class ToolConfig():
             setattr(self, attr, attr_val)
 
         # Iterate over all provided options and save to class instance members
-        for (key, val) in kwargs.iteritems():
+        for (key, val) in six.iteritems(kwargs):
             if key in VALID_ATTRIBUTES:
                 setattr(self, key, val)
             else:
@@ -176,12 +178,12 @@ class ToolConfig():
                 self.set_ext_params(platform, properties)
 
     def recursive_options(self,element,params):
-        for key, val in params.iteritems():
+        for key, val in six.iteritems(params):
             if isinstance(val, dict):
                 options_node = etree.SubElement(element,
                       '{%s}%s' %(NSMAP['lticm'], 'options'), name =
                       key)
-                for key, val in val.iteritems():
+                for key, val in six.iteritems(val):
                     self.recursive_options(options_node,{key:val})
             else:
                 param_node = etree.SubElement(element, '{%s}%s'

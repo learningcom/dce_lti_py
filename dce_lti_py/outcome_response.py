@@ -1,3 +1,5 @@
+import six
+
 from lxml import etree, objectify
 from .utils import InvalidLTIConfigError
 
@@ -49,7 +51,7 @@ class OutcomeResponse():
             setattr(self, attr, None)
 
         # Store specified options in our options member
-        for (key, val) in kwargs.iteritems():
+        for (key, val) in six.iteritems(kwargs):
             if key in VALID_ATTRIBUTES:
                 setattr(self, key, val)
             else:

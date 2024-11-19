@@ -1,3 +1,5 @@
+import six
+
 from collections import defaultdict
 from lxml import etree, objectify
 
@@ -42,7 +44,7 @@ class OutcomeRequest():
             setattr(self, attr, None)
 
         # Store specified options in our accessors
-        for (key, val) in opts.iteritems():
+        for (key, val) in six.iteritems(opts):
             if key in VALID_ATTRIBUTES:
                 setattr(self, key, val)
             else:
